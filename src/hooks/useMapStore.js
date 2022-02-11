@@ -32,7 +32,6 @@ const useMapStore = create((set, get) => ({
     // make sure it's a feature
     if (feature?.type !== "Feature") return;
     const bounds = bbox(feature);
-    console.log({ bounds });
     get().flyToBounds(bounds, options);
   },
   flyTo: ({ latitude, longitude, ...options }) => {
