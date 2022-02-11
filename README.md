@@ -7,6 +7,10 @@ This library is a wrapper for `react-map-gl` that provides some functionality ou
 - managing hover and selected state on interactive features
 - providing map view state, hovered feature, selected feature via global store
 
+## Demo
+
+- [codesandbox](https://codesandbox.io/s/mapgl-demo-zns7y?file=/src/App.js)
+
 ## Components
 
 ### `<MapGL />`
@@ -31,7 +35,7 @@ Any additional props are passed on to the [ReactMapGL Map](https://visgl.github.
 
 ```js
 import MapGL from "@hyperobjekt/mapgl";
-import "@hyperobjekt/mapgl/dist/MapGL.css";
+import "@hyperobjekt/mapgl/dist/style.css";
 
 const NycMap = (props) => (
   <MapGL
@@ -58,7 +62,7 @@ Any options that can be passed to [fitBounds](https://docs.mapbox.com/mapbox-gl-
 
 ```js
 import MapGL, { ZoomToBoundsControl } from "@hyperobjekt/mapgl";
-import "@hyperobjekt/mapgl/dist/MapGL.css";
+import "@hyperobjekt/mapgl/dist/style.css";
 
 const ZoomToBoundsMap = (props) => (
   <MapGL {...props}>
