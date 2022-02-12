@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.1] - 2022-02-12
+
+- fix: pass options from `flyToDefault` to `fitBounds`
+- fix: pass original event to callback functions
+
 ## [1.1.0] - 2022-02-12
 
 - feat: add `useMapState` hook for easy state selection
