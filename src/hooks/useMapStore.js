@@ -43,9 +43,9 @@ const useMapStore = create((set, get) => ({
   flyToBounds: (bbox, options = DEFAULT_FITBOUNDS_OPTS) => {
     get().map.fitBounds(bbox, options);
   },
-  flyToDefault: () => {
+  flyToDefault: (options = {}) => {
     const bounds = get().bounds;
-    bounds && get().map.flyToBounds(bounds);
+    bounds && get().map.flyToBounds(bounds, options);
   },
 }));
 
