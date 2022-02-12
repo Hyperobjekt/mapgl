@@ -72,6 +72,11 @@ const MapGL = ({
     shallow
   );
 
+  // set the default / reset viewport when it changes
+  useEffect(() => {
+    bounds && setBounds(bounds);
+  }, [bounds, setBounds]);
+
   // map interactive layers to interactive layer ids array
   const interactiveLayerIds = layers
     ?.filter((l) => l.interactive)
@@ -138,11 +143,6 @@ const MapGL = ({
     [onClick, selectedFeature, setSelectedFeature]
   );
 
-  // set the default / reset viewport when it changes
-  useEffect(() => {
-    bounds && setBounds(bounds);
-  }, [bounds, setBounds]);
-
   return (
     <MapContainer
       onMouseLeave={handleMouseLeave}
@@ -162,7 +162,7 @@ const MapGL = ({
         {...viewState}
         {...props}
       >
-        <Layers sources={sources} layers={layers} />
+        {sources && layers && <Layers sources={sources} layers={layers} />}
         {children}
       </Map>
     </MapContainer>
@@ -170,7 +170,6 @@ const MapGL = ({
 };
 
 MapGL.defaultProps = {
-  mapStyle: "mapbox://styles/hyperobjekt/cke1roqr302yq19jnlpc8dgr9",
   ContainerProps: {},
   dragRotate: false,
   touchRotate: false,
@@ -179,13 +178,9 @@ MapGL.defaultProps = {
 };
 
 MapGL.propTypes = {
-  /** URL to the mapbox style */
-  mapStyle: PropTypes.string,
   /** props to pass to the container component  */
   ContainerProps: PropTypes.object,
   /** handler for when an interactive feature layer is hovered */
-  onMouseMove: PropTypes.func,
-  /** handler for when an interactive feature is clicked */
   onClick: PropTypes.func,
   /** handler for when the map loads */
   onLoad: PropTypes.func,

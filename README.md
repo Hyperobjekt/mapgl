@@ -19,15 +19,12 @@ This library is a wrapper for `react-map-gl` that provides some functionality ou
 
 - `mapboxAccessToken`: **required** mapbox access token
 - `children`: any children (e.g. legend)
-- `onMouseMove`: handler function for hovering over a feature
-- `onMouseLeave`: handler function for leaving a feature
-- `onClick`: handler function for clicking on a feature
 - `onLoad`: handler function for when the map has loaded
 - `ContainerProps`: an object containing props to pass to the container div
 - `sources`: an array of [source objects](https://docs.mapbox.com/mapbox-gl-js/style-spec/sources/) following mapboxgl source format
 - `layers`: an array of [layer styles](https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/) (with optional additional parameters for `beforeId` and `interactive`)
 
-Any additional props are passed on to the [ReactMapGL Map](https://visgl.github.io/react-map-gl/)
+Any additional props are passed on to the [ReactMapGL Map](https://visgl.github.io/react-map-gl/docs/api-reference/map). Essentially, any [options available to the mapboxgl map](https://docs.mapbox.com/mapbox-gl-js/api/map/) can be passed as props to the `<MapGL />` component.
 
 #### Usage
 
@@ -39,6 +36,7 @@ import "@hyperobjekt/mapgl/dist/style.css";
 
 const NycMap = (props) => (
   <MapGL
+    mapboxAccessToken={`...`}
     bounds={[
       [-74.05, 40.47],
       [-73.9, 40.9],
