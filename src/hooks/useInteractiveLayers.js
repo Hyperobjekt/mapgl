@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import shallow from "zustand/shallow";
-import { usePrevious } from "rooks";
+import { usePreviousImmediate as usePrevious } from "rooks";
 import useMapStore from "./useMapStore";
 
 /**
