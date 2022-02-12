@@ -82,6 +82,8 @@ const MapGL = ({
     ?.filter((l) => l.interactive)
     .map((l) => l.id);
 
+  const cursor = hoveredFeature ? "pointer" : "auto";
+
   // sets loading state in the store and fires callback
   const handleLoad = useCallback(
     (event) => {
@@ -159,6 +161,7 @@ const MapGL = ({
         interactiveLayerIds={interactiveLayerIds}
         style={{ width, height, ...style }}
         bounds={bounds}
+        cursor={cursor}
         {...viewState}
         {...props}
       >
@@ -178,9 +181,13 @@ MapGL.defaultProps = {
 };
 
 MapGL.propTypes = {
+  /** URL to the mapbox style */
+  mapStyle: PropTypes.string,
   /** props to pass to the container component  */
   ContainerProps: PropTypes.object,
   /** handler for when an interactive feature layer is hovered */
+  onMouseMove: PropTypes.func,
+  /** handler for when an interactive feature is clicked */
   onClick: PropTypes.func,
   /** handler for when the map loads */
   onLoad: PropTypes.func,

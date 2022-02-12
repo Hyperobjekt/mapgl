@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import { MapGL, useMapStore } from ".";
+import { MapGL, useMapFlyToFeature, useMapState, ZoomToBoundsControl } from ".";
 import {
   FullscreenControl,
   GeolocateControl,
   NavigationControl,
 } from "react-map-gl";
-import ZoomToBoundsControl from "./components/ZoomToBoundsControl.jsx";
 
 const SOURCES = [
   {
@@ -61,15 +60,26 @@ const US_BOUNDS = [
   [-65, 50],
 ];
 
+const MAP_STYLE = "mapbox://styles/hyperobjekt/cke1roqr302yq19jnlpc8dgr9";
+
 function App() {
-  const flyToFeature = useMapStore((state) => state.flyToFeature);
-  const selectedFeature = useMapStore((state) => state.selectedFeature);
+  // function that flys the map to a provided feature
+  const flyToFeature = useMapFlyToFeature();
+
+  // feature that was last clicked
+  const selectedFeature = useMapState("selectedFeature");
+
+  // fly to feature when clicked
   useEffect(() => {
-    console.log("selected feature effect triggered");
     selectedFeature && flyToFeature(selectedFeature);
   }, [selectedFeature, flyToFeature]);
   return (
-    <MapGL mapboxAccessToken={TOKEN} sources={SOURCES} layers={LAYERS}>
+    <MapGL
+      mapboxAccessToken={TOKEN}
+      sources={SOURCES}
+      layers={LAYERS}
+      mapStyle={MAP_STYLE}
+    >
       <FullscreenControl />
       <GeolocateControl />
       <NavigationControl />
