@@ -76,6 +76,44 @@ const ZoomToBoundsMap = (props) => (
 
 ## Hooks
 
+### useMapFlyTo()
+
+Returns the [flyTo function](https://docs.mapbox.com/mapbox-gl-js/api/map/#map#flyto) for the map.
+
+```ts
+function (options: FlyToOptions) {}
+```
+
+### useMapFlyToBounds():
+
+Returns a function that flys to the bounds of a feature on the map. The available options are the same as the [fitBounds options](https://docs.mapbox.com/mapbox-gl-js/api/map/#map#fitbounds).
+
+```ts
+function(
+  bounds: [number[], number[]],
+  options?: FitBoundsOptions
+) {...}
+```
+
+### useMapFlyToFeature()
+
+Returns a function that flys to the bounds of a feature on the map. The available options are the same as the [fitBounds options](https://docs.mapbox.com/mapbox-gl-js/api/map/#map#fitbounds).
+
+```ts
+function(
+  feature: GeoJSON.Feature,
+  options?: FitBoundsOptions
+) {...}
+```
+
+### useMapFlyToDefault()
+
+Returns a function that flys to the default `bounds` provided to the map. The available options are the same as the [fitBounds options](https://docs.mapbox.com/mapbox-gl-js/api/map/#map#fitbounds).
+
+```ts
+function(options?: FitBoundsOptions) {...}
+```
+
 ### useMapStore()
 
 This is the store for all of the map state.
@@ -110,4 +148,14 @@ const HoveredFeatureName = () => {
   const hoveredFeature = useMapStore((state) => state.hoveredFeature);
   return <p>{hoveredFeature?.properties?.name}</p>;
 };
+```
+
+### useMapState(key: string)
+
+This hook is a shortcut for selecting state from the store (vs. using `useMapStore`). Any of they keys within the map store can be used.
+
+**Example: selecting the hovered feature**
+
+```js
+const hoveredFeature = useMapState("hoveredFeature");
 ```
