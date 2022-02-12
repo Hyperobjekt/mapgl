@@ -115,7 +115,7 @@ const MapGL = ({
         features && features.length > 0 ? features[0] : null;
       const isNew = hoveredFeature?.id !== newHoveredFeature?.id;
       isNew && setHoveredFeature(newHoveredFeature);
-      onMouseMove && onMouseMove(newHoveredFeature, event);
+      onMouseMove && onMouseMove(event);
     },
     [onMouseMove, setHoveredFeature, hoveredFeature]
   );
@@ -132,7 +132,6 @@ const MapGL = ({
   // update the selected feature in the store, and fire callback
   const handleClick = useCallback(
     (event) => {
-      console.log("handleClick", event, event.features);
       const { originalEvent, features } = event;
       // if we are clicking outside of the map overlay, return
       if (!originalEvent?.target?.classList.contains("mapboxgl-canvas")) return;
@@ -140,7 +139,7 @@ const MapGL = ({
       const isNew = selectedFeature?.id !== clickedFeature?.id;
       // activate feature if one was clicked and this isn't a control click
       setSelectedFeature(isNew ? clickedFeature : null);
-      onClick && onClick(features[0], event);
+      onClick && onClick(event);
     },
     [onClick, selectedFeature, setSelectedFeature]
   );
