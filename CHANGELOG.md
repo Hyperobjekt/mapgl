@@ -1,6 +1,10 @@
 # Changelog
 
-## [1.1.2] - 2022-02-15
+## [1.1.4] - 2022-02-16
+
+- fix: add github repo and css exports to package.json
+
+## [1.1.3] - 2022-02-15
 
 - fix: specify sourceLayer on state changes if it exists
 
