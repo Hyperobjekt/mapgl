@@ -8,27 +8,28 @@ import {
 
 const SOURCES = [
   {
-    id: "states",
-    type: "geojson",
-    data: "https://gist.githubusercontent.com/Lane/f65bab1dc5581c58be8da8329fe56821/raw/6715ccae5d2b24c3e7f31a628c1de5d8725daf90/us-states.json",
+    id: "states_choropleth",
+    type: "vector",
+    tiles: [
+      "https://spi-tilesets.s3.us-west-2.amazonaws.com/v0.0.1/states/{z}/{x}/{y}.pbf",
+    ],
   },
 ];
 const LAYERS = [
   {
     id: "states-choropleth",
-    source: "states",
+    source: "states_choropleth",
+    "source-layer": "states",
     type: "fill",
     paint: {
       "fill-color": "rgba(255,0,0,1)",
       "fill-opacity": [
         "interpolate",
         ["linear"],
-        ["get", "density"],
-        1,
-        0.1,
+        ["get", "bhn"],
         50,
-        0.4,
-        500,
+        0.1,
+        80,
         0.8,
       ],
     },
@@ -37,7 +38,8 @@ const LAYERS = [
   },
   {
     id: "states-outline",
-    source: "states",
+    source: "states_choropleth",
+    "source-layer": "states",
     type: "line",
     paint: {
       "line-color": "rgba(255,0,0,1)",

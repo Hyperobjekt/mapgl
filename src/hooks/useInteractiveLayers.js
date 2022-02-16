@@ -16,7 +16,29 @@ const setFeatureState = (map, feature, state) => {
     source: feature.layer.source,
     id: feature.id,
   };
+  const sourceLayer = feature.layer?.["source-layer"] || feature.sourceLayer;
+  if (sourceLayer) featureProps["sourceLayer"] = sourceLayer;
   map.setFeatureState(featureProps, state);
+};
+
+/**
+ * Removes state from a given feature (or previous feature)
+ * This is used to clear hover states
+ * @param {*} map
+ * @param {*} feature
+ * @param {*} previousFeature
+ * @returns
+ */
+const removeFeatureState = (map, feature, previousFeature) => {
+  const source = feature?.layer?.source || previousFeature?.layer?.source;
+  if (!source) return;
+  const sourceLayer =
+    feature?.layer?.["source-layer"] ||
+    previousFeature?.layer?.["source-layer"];
+  const update = { source };
+  if (sourceLayer) update["sourceLayer"] = sourceLayer;
+  // clear all hovered states (prevents sticking outlines)
+  map.removeFeatureState(update);
 };
 
 /**
@@ -35,10 +57,8 @@ export default function useInteractiveLayers() {
   // set the currently hovered feature state
   useEffect(() => {
     if (!isLoaded) return;
-    const source =
-      hoveredFeature?.layer?.source || previousHoveredFeature?.layer?.source;
     // clear all hovered states (prevents sticking outlines)
-    source && map.removeFeatureState({ source });
+    removeFeatureState(map, hoveredFeature, previousHoveredFeature);
     // set hovered state
     setFeatureState(map, hoveredFeature, { hover: true });
     // set selected state
