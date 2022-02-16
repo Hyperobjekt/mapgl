@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.2] - 2022-02-15
+
+- fix: specify sourceLayer on state changes if it exists
+
 ## [1.1.1] - 2022-02-12
 
 - fix: pass options from `flyToDefault` to `fitBounds`
