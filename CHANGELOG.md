@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.5] - 2022-02-21
+
+- fix: ensure the map resizes when the window changes width
+- fix: forward map ref from the MapGL component
+
 ## [1.1.4] - 2022-02-16
 
 - fix: add github repo and css exports to package.json

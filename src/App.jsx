@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { MapGL, useMapFlyToFeature, useMapState, ZoomToBoundsControl } from ".";
 import {
   FullscreenControl,
@@ -65,6 +65,10 @@ const US_BOUNDS = [
 const MAP_STYLE = "mapbox://styles/hyperobjekt/cke1roqr302yq19jnlpc8dgr9";
 
 function App() {
+  // get a reference to the map instance
+  const ref = useRef();
+  console.debug("map instance:", ref.current);
+
   // function that flys the map to a provided feature
   const flyToFeature = useMapFlyToFeature();
 
@@ -75,12 +79,14 @@ function App() {
   useEffect(() => {
     selectedFeature && flyToFeature(selectedFeature);
   }, [selectedFeature, flyToFeature]);
+
   return (
     <MapGL
       mapboxAccessToken={TOKEN}
       sources={SOURCES}
       layers={LAYERS}
       mapStyle={MAP_STYLE}
+      ref={ref}
     >
       <FullscreenControl />
       <GeolocateControl />
