@@ -1,6 +1,5 @@
 import React from "react";
 import { Layer, Source } from "react-map-gl";
-import useInteractiveLayers from "../hooks/useInteractiveLayers";
 
 const getLayersForSourceId = (sourceId, layers) => {
   return layers.filter((layer) => layer.source === sourceId);
@@ -11,9 +10,6 @@ const getLayersForSourceId = (sourceId, layers) => {
  * as well as managing feature states
  */
 const Layers = ({ sources, layers }) => {
-  // interactive layers hook adds hovered / selected states to features
-  useInteractiveLayers();
-
   if (!layers) return null;
   return (
     <>

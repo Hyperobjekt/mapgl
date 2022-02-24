@@ -6,6 +6,7 @@ import { useMapStore } from "../hooks";
 import Layers from "./Layers";
 import "mapbox-gl/dist/mapbox-gl.css";
 import MapContainer from "./MapContainer";
+import { useInteractiveLayers } from "../hooks";
 import "./MapGL.css";
 
 /**
@@ -76,6 +77,9 @@ const MapGL = React.forwardRef(
       shallow
     );
 
+    // interactive layers hook adds hovered / selected states to features
+    const interactiveLayerIds = useInteractiveLayers(ref.current, layers);
+
     // set the default / reset viewport when it changes
     useEffect(() => {
       bounds && setBounds(bounds);
@@ -85,11 +89,6 @@ const MapGL = React.forwardRef(
     useEffect(() => {
       ref?.current?.resize();
     }, [width, height]);
-
-    // map interactive layers to interactive layer ids array
-    const interactiveLayerIds = layers
-      ?.filter((l) => l.interactive)
-      .map((l) => l.id);
 
     const cursor = hoveredFeature ? "pointer" : "auto";
 
