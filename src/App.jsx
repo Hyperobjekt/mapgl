@@ -14,6 +14,13 @@ const SOURCES = [
       "https://spi-tilesets.s3.us-west-2.amazonaws.com/v0.0.1/states/{z}/{x}/{y}.pbf",
     ],
   },
+  {
+    id: "cities_choropleth",
+    type: "vector",
+    tiles: [
+      "https://spi-tilesets.s3.us-west-2.amazonaws.com/v0.0.1/cities/{z}/{x}/{y}.pbf",
+    ],
+  },
 ];
 const LAYERS = [
   {
@@ -49,6 +56,55 @@ const LAYERS = [
         5,
         ["case", ["boolean", ["feature-state", "selected"], false], 5, 1],
       ],
+    },
+    beforeId: "road-label",
+  },
+  {
+    id: "cities-bubble",
+    source: "cities_choropleth",
+    "source-layer": "cities-centers",
+    type: "circle",
+    paint: {
+      "circle-color": "rgba(255,0,0,1)",
+      "circle-opacity": [
+        "interpolate",
+        ["linear"],
+        ["get", "bhn"],
+        50,
+        0.1,
+        80,
+        0.8,
+      ],
+    },
+    beforeId: "road-label",
+    interactive: true,
+  },
+  {
+    id: "cities-bubble-outline",
+    source: "cities_choropleth",
+    "source-layer": "cities-centers",
+    type: "circle",
+    paint: {
+      "circle-stroke-color": [
+        "case",
+        ["boolean", ["feature-state", "hover"], false],
+        "rgba(255,0,255,1)",
+        [
+          "case",
+          ["boolean", ["feature-state", "selected"], false],
+          "rgba(0,255,255,1)",
+          "rgba(255,0,0,1)",
+        ],
+      ],
+
+      "circle-stroke-width": [
+        "case",
+        ["boolean", ["feature-state", "hover"], false],
+        5,
+        ["case", ["boolean", ["feature-state", "selected"], false], 5, 1],
+      ],
+      "circle-color": "transparent",
+      "circle-opacity": 1,
     },
     beforeId: "road-label",
   },
