@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.6] - 2022-02-24
+
+- fix: remove sticky hover states
+
 ## [1.1.5] - 2022-02-21
 
 - fix: ensure the map resizes when the window changes width
