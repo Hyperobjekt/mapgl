@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.7] - 2022-03-04
+
+- chore: update peer dependencies + license
+
 ## [1.1.6] - 2022-02-24
 
 - fix: remove sticky hover states
