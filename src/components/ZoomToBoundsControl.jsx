@@ -27,7 +27,7 @@ class BoundsControl {
 
   constructor(options) {
     this.options = { ...defaultOptions, ...options };
-    const { bounds, className, ...rest } = this.options;
+    const { bounds, className, title, ...rest } = this.options;
     this._container = DOM.create(
       "div",
       `mapboxgl-ctrl mapboxgl-ctrl-group ${className}`
@@ -39,10 +39,9 @@ class BoundsControl {
         if (this._map) this._map.fitBounds(bounds, rest);
       }
     );
-    DOM.create("span", `mapboxgl-ctrl-icon`, this._boundsButton).setAttribute(
-      "aria-hidden",
-      true
-    );
+    const button = DOM.create("span", `mapboxgl-ctrl-icon`, this._boundsButton);
+    button.setAttribute("aria-hidden", true);
+    button.setAttribute("title", title || "Zoom to bounds");
   }
   onAdd(map) {
     this._map = map;
