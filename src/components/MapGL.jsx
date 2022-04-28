@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
 import Map from "react-map-gl";
 import shallow from "zustand/shallow";
@@ -77,8 +77,15 @@ const MapGL = React.forwardRef(
       shallow
     );
 
+    // use ref if one is provided, otherwise create a local ref to use
+    const _ref = useRef();
+    const internalRef = ref || _ref;
+
     // interactive layers hook adds hovered / selected states to features
-    const interactiveLayerIds = useInteractiveLayers(ref.current, layers);
+    const interactiveLayerIds = useInteractiveLayers(
+      internalRef.current,
+      layers
+    );
 
     // set the default / reset viewport when it changes
     useEffect(() => {
@@ -87,7 +94,7 @@ const MapGL = React.forwardRef(
 
     // update the canvas size on width / height changes
     useEffect(() => {
-      ref?.current?.resize();
+      internalRef?.current?.resize();
     }, [width, height]);
 
     const cursor = hoveredFeature ? "pointer" : "auto";
@@ -161,7 +168,7 @@ const MapGL = React.forwardRef(
       >
         <Map
           className={"HypMapGL-map"}
-          ref={ref}
+          ref={internalRef}
           onMove={handleMove}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
