@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.8] - 2022-04-28
+
+- fix: add title prop to button for ZoomToBoundsControl
+- fix: do not crash if no ref is provided
+
 ## [1.1.7] - 2022-03-04
 
 - chore: update peer dependencies + license
